@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+<copyright file="Product.wxs" company="SCVNGR, Inc. d/b/a LevelUp">
+     Copyright(c) 2018 SCVNGR, Inc. d/b/a LevelUp. All rights reserved.
+  
+</copyright>
+<license publisher="Apache Software Foundation" date="January 2004" version="2.0">
+     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+     in compliance with the License. You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software distributed under the License
+     is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+     or implied. See the License for the specific language governing permissions and limitations under
+     the License.
+</license>
+-->
+
+
+
+<?define Manufacturer="LevelUp"?>
+<?define ProductName="LevelUp TLS 1.2 Patch" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <Product Id="*" Name="$(var.ProductName)" Language="1033"
+           Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="2ae0aafa-457e-49b6-a96c-cc6700912e1d">
+
+
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Configure Add/Remove Icons -->
+    <Icon Id="LevelUpIcon" SourceFile="$(var.ProjectDir)Images\levelup-logo.ico" />
+    <Property Id="ARPPRODUCTICON" Value="LevelUpIcon" />
+
+    <!-- Some Custom Graphics For The Installer -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)Images\levelup-banner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)Images\levelup-dialog.bmp"/>
+
+    <!-- Get User Information For Setting Permissions -->
+    <PropertyRef Id="WIX_ACCOUNT_USERS" />
+
+    <!-- Detect correct version of the .Net Framework -->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_46_OR_LATER_INSTALLED"/>
+    <Condition
+	    Message="This application requires .NET Framework 4.6 or higher. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_46_OR_LATER_INSTALLED]]>
+    </Condition>
+
+    <!--Simple dialog flow copied from: https://stackoverflow.com/a/259685 -->
+    <UI Id="UserInterface">
+      <UIRef Id="WixUI_Common" />
+      
+      <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR" />
+      <Property Id="WixUI_Mode" Value="Custom" />
+
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="9" Bold="yes" />
+      <TextStyle Id="WixUI_Font_Title"  FaceName="Tahoma" Size="9" Bold="yes" />
+
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="UserExit" />
+
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="EndDialog" Value="Return" Order="2"></Publish>
+
+    </UI>
+
+    <Feature Id="ProductFeature" Title="LevelUp.Integrations.TlsPatcher.Installer" Level="1">
+      <ComponentGroupRef Id="RegistryComponents" />
+    </Feature>
+  </Product>
+
+  <?include Tls12RegistryComponents.wxi ?>
+</Wix>
