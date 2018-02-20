@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<copyright file="Bundle.wxs" company="SCVNGR, Inc. d/b/a LevelUp">
+     Copyright(c) 2018 SCVNGR, Inc. d/b/a LevelUp. All rights reserved.
+  
+</copyright>
+<license publisher="Apache Software Foundation" date="January 2004" version="2.0">
+     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+     in compliance with the License. You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software distributed under the License
+     is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+     or implied. See the License for the specific language governing permissions and limitations under
+     the License.
+</license>
+-->
+
+<?define Manufacturer="LevelUp" ?>
+<?define ProductName="LevelUp TLS 1.2 Patch" ?>
+
+<!--Installer-->
+<?define MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetDir)"?>
+<?define MsiTargetName="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetName)"?>
+<?define MsiTargetExt="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetExt)"?>
+<?define MsiFileSource="$(var.MsiTargetDir)$(var.MsiTargetName)$(var.MsiTargetExt)"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+  
+	<Bundle Name="$(var.ProductName)"
+          Version="1.0.0.0" Manufacturer="$(var.Manufacturer)"
+          UpgradeCode="921843e8-09f5-4f60-b9d2-f298b7e85a84"
+	        IconSourceFile="$(var.ProjectDir)Images\levelup-logo.ico"
+	        SplashScreenSourceFile="$(var.ProjectDir)Images\levelup-logo.bmp">
+
+    <?if $(var.Platform)=x86 ?>
+	  <bal:Condition 
+      Message="You are attempting to run the x86 installer on a 64-bit system, please download and run the x64 installer instead">
+	    NOT(VersionNT64)
+	  </bal:Condition>
+    <?endif ?>
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+
+      <bal:WixStandardBootstrapperApplication
+        LicenseFile="$(var.ProjectDir)Miscellaneous\License.rtf"
+        LogoFile="$(var.ProjectDir)Images\levelup-logo-square.bmp"
+        SuppressOptionsUI="yes"/>
+      
+    </BootstrapperApplicationRef>
+
+		<Chain>
+		  <PackageGroupRef Id="NetFx46Redist" />
+			<MsiPackage Vital="yes" SourceFile="$(var.MsiFileSource)" Compressed="yes" DisplayInternalUI="no"/>
+		</Chain>
+	</Bundle>
+</Wix>
