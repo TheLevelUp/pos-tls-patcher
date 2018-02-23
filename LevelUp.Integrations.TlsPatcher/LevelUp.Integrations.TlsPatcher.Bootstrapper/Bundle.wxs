@@ -24,13 +24,14 @@
 <?define MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetDir)"?>
 <?define MsiTargetName="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetName)"?>
 <?define MsiTargetExt="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetExt)"?>
-<?define MsiFileSource="$(var.MsiTargetDir)$(var.MsiTargetName)$(var.MsiTargetExt)"?>
+
+<?define MsiFileSource="$(var.MsiTargetDir)$(var.MsiTargetName)-$(var.GitVersion_NuGetVersion)_$(var.Platform)$(var.MsiTargetExt)"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
   
 	<Bundle Name="$(var.ProductName)"
-          Version="1.0.0.0" Manufacturer="$(var.Manufacturer)"
+          Version="$(var.GitVersion_MajorMinorPatch)" Manufacturer="$(var.Manufacturer)"
           UpgradeCode="921843e8-09f5-4f60-b9d2-f298b7e85a84"
 	        IconSourceFile="$(var.ProjectDir)Images\levelup-logo.ico"
 	        SplashScreenSourceFile="$(var.ProjectDir)Images\levelup-logo.bmp">

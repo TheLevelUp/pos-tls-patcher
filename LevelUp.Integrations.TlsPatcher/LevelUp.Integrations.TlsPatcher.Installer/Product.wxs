@@ -26,7 +26,7 @@
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
   <Product Id="*" Name="$(var.ProductName)" Language="1033"
-           Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="2ae0aafa-457e-49b6-a96c-cc6700912e1d">
+           Version="$(var.GitVersion_MajorMinorPatch)" Manufacturer="$(var.Manufacturer)" UpgradeCode="2ae0aafa-457e-49b6-a96c-cc6700912e1d">
 
 
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />

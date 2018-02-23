@@ -1,44 +1,47 @@
 # LevelUp TLS 1.2 Patcher
-A simple installer which makes .NET 4.x code use [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 without any code changes by doing the following:
+
+A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on a system. 
+
+<!-- TOC -->
+
+- [LevelUp TLS 1.2 Patcher](#levelup-tls-12-patcher)
+    - [Download and Installation](#download-and-installation)
+    - [In-Depth](#in-depth)
+        - [.NET Framework Version](#net-framework-version)
+        - [.NET Framework registry keys](#net-framework-registry-keys)
+        - [SChannel registry keys](#schannel-registry-keys)
+    - [Build Requirements](#build-requirements)
+        - [Certificate Signing](#certificate-signing)
+        - [Build Instructions](#build-instructions)
+    - [Usage](#usage)
+    - [Limitations](#limitations)
+    - [License](#license)
+
+<!-- /TOC -->
+
+## Download and Installation
+Make sure to use the version which matches your architecture: 
+
+* [x86](/releases/latest) for 32-bit versions of Windows
+* [x64](/releases/latest) for 64-bit versions of Windows. 
+
+To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You will be prompted to restart your computer in order for the changes to take effect.
+
+Minimum system requirements: Windows Vista Service Pack 2
+
+The installer:
 
 * Detects whether .NET 4.6 or higher is present on the system, and if not, downloads and installs the .NET 4.6 Redistributable.
 * Writes a registry value which makes .NET 4.x code select the strongest enabled security protocol by default.
 * Writes registry values to explicitly enable TLS 1.2 for [WinSSL](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380123(v=vs.85).aspx).
 
-For the rationale behind these changes, see [Details of changes made by the patcher](#details-of-changes-made-by-the-patcher). 
+For the rationale behind these changes, see the [in-depth](#in-depth) section below. 
 
-Some exceptions may apply. See [Limitations](#limitations) for details
+Some exceptions may apply. See the [limitations](#limitations) section below.
 
-## Download
-Make sure to use the version which matches your architecture: 
-* [x86](#TODO) for 32-bit versions of Windows
-* [x64](#TODO) for 64-bit versions of Windows. 
+## In-Depth
+This section outlines in more detail what changes are made.
 
-### System Requirements
-To install:
-* Minimum: Windows Vista Service Pack 2
-
-To build:
-* [Wix Toolset v3.11](http://wixtoolset.org/releases/)
-
-### Installation
-To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You will be prompted to restart your computer in order for the changes to take effect.
-
-## Table of Contents
-- [LevelUp TLS 1.2 Patcher](#levelup-tls-12-patcher)
-    - [Download](#download)
-        - [System Requirements](#system-requirements)
-        - [Installation](#installation)
-    - [Table of Contents](#table-of-contents)
-    - [Details of changes made by the patcher](#details-of-changes-made-by-the-patcher)
-        - [.NET Framework Version](#net-framework-version)
-        - [.NET Framework registry keys](#net-framework-registry-keys)
-        - [SChannel registry keys](#schannel-registry-keys)
-    - [Usage](#usage)
-    - [Limitations](#limitations)
-    - [License](#license)
-
-## Details of changes made by the patcher
 ### .NET Framework Version
 The option of using TLS 1.2 was introduced in .NET 4.5, however, it is not enabled as a communication protocol by default in 4.5. Beginning with .NET 4.6, it is enabled as a communication protocol by default. Thus, in conjunction with the appropriate registry changes, .NET 4.6+ makes it possible to use TLS 1.2 without having to make code changes to explicitly enable it.
 
@@ -73,6 +76,30 @@ The following registry keys/values are set to enable the TLS 1.2 for SChannel.dl
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client | DisabledByDefault | 0x00000000 |
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server | Enabled           | 0x00000001 |
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server | DisabledByDefault | 0x00000000 |
+
+## Build Requirements
+To build this Visual Studio solution (`.sln`) you must have the following components installed:
+
+* Visual Studio 2017/MSBuild 15.0
+* Powershell
+* NuGet CLI - The nuget command must be available from your command line.
+* [Wix Toolset v3.11](http://wixtoolset.org/releases/)
+
+### Certificate Signing
+LevelUp signs its installers by hooking into MSBuild. If you build this project on your own machine, that's okay, but if you notice the following message...
+
+> warning : The LevelUp certificate cannot be found; no files will be signed.
+
+... that's why.
+
+### Build Instructions
+`git clean -fdx`
+
+`cd .\LevelUp.Integrations.TlsPatcher\`
+
+`nuget.exe restore <solution file>`
+
+`MSBuild.exe <solution file> /p:Configuration=<Debug/Release> /p:Platform=<x86/x64>`
 
 ## Usage
 If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
