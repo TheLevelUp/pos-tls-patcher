@@ -1,6 +1,6 @@
 # LevelUp TLS 1.2 Patcher
 
-A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on a system. 
+A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on Microsoft Windows Vista Service Pack 2 or later.
 
 <!-- TOC -->
 
@@ -38,6 +38,22 @@ The installer:
 For the rationale behind these changes, see the [in-depth](#in-depth) section below. 
 
 Some exceptions may apply. See the [limitations](#limitations) section below.
+
+See the table below for a list of systems verified to be compatible/incompatible with this utility:
+
+| Windows OS                                    | x86 | x64 | Notes          |
+| --------------------------------------------- | --- | --- | -------------- |
+| Windows XP & Windows Server 2003              | X   | X   | Not compatible |
+| Windows Embedded POSReady 2009                |     |     |                |
+| Windows Vista/Windows Server 2008             |     |     |                |
+| Windows Server 2008 with Service Pack 2 (SP2) |     |     |                |
+| Windows 7/Windows Server 2008 R2              |     |     |                |
+| Windows Embedded POSReady 7                   |     |     |                |
+| Windows 8/Windows Server 2012                 | ✓   |     |                |
+| Windows Embedded 8 Industry                   |     |     |                |
+| Windows 8.1/Windows Server 2012 R2            |     |     |                |
+| Windows Embedded 8.1 Industry                 |     |     |                |
+| Windows 10 & Windows Server 2016              |     |     |                |
 
 ## In-Depth
 This section outlines in more detail what changes are made.
@@ -86,11 +102,9 @@ To build this Visual Studio solution (`.sln`) you must have the following compon
 * [Wix Toolset v3.11](http://wixtoolset.org/releases/)
 
 ### Certificate Signing
-LevelUp signs its installers by hooking into MSBuild. If you build this project on your own machine, that's okay, but if you notice the following message...
+LevelUp signs its installers by hooking into MSBuild. If you build this project on your own machine, you may ignore the following warning message:
 
 > warning : The LevelUp certificate cannot be found; no files will be signed.
-
-... that's why.
 
 ### Build Instructions
 `git clean -fdx`
