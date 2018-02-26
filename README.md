@@ -27,7 +27,9 @@ Make sure to use the version which matches your architecture:
 
 To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You will be prompted to restart your computer in order for the changes to take effect.
 
-Minimum system requirements: Windows Vista Service Pack 2
+Minimum system requirements:
+* For one-click install with no other prerequisites: Windows 7 with Service Pack 1
+* Windows Vista SP2 and Windows Server 2008 SP2 are supported after installing [Microsoft Update KB4019276](https://www.catalog.update.microsoft.com/Search.aspx?q=KB4019276).
 
 The installer:
 
@@ -39,21 +41,22 @@ For the rationale behind these changes, see the [in-depth](#in-depth) section be
 
 Some exceptions may apply. See the [limitations](#limitations) section below.
 
-See the table below for a list of systems verified to be compatible/incompatible with this utility:
+See the table below for a list of systems verified to be compatible/incompatible with this utility. Cells which do not have an X or ✓ have not yet been tested, but we expect them to be compatible unless otherwise noted. N/A indicates that the Windows version does not have a release with the specified architecture.
 
-| Windows OS                                    | x86 | x64 | Notes          |
-| --------------------------------------------- | --- | --- | -------------- |
-| Windows XP & Windows Server 2003              | X   | X   | Not compatible |
-| Windows Embedded POSReady 2009                |     |     |                |
-| Windows Vista/Windows Server 2008             |     |     |                |
-| Windows Server 2008 with Service Pack 2 (SP2) |     |     |                |
-| Windows 7/Windows Server 2008 R2              |     |     |                |
-| Windows Embedded POSReady 7                   |     |     |                |
-| Windows 8/Windows Server 2012                 | ✓   |     |                |
-| Windows Embedded 8 Industry                   |     |     |                |
-| Windows 8.1/Windows Server 2012 R2            |     |     |                |
-| Windows Embedded 8.1 Industry                 |     |     |                |
-| Windows 10 & Windows Server 2016              |     |     |                |
+| Windows OS                                                 | x86 | x64 | Notes                     |
+| ---------------------------------------------------------- | --- | --- | ------------------------- |
+| Windows XP & Windows Server 2003                           | X   | X   | Does not support .NET 4.6 |
+| Windows Embedded Point of Sale 1.0                         | X   | X   | Does not support .NET 4.6 |
+| Windows Embedded POSReady 2009                             | X   | N/A | Does not support .NET 4.6 |
+| Windows Vista with Service Pack 2 (SP2)                    |     | ✓   | Requires KB4019276        |
+| Windows Server 2008 with Service Pack 2 (SP2)              | N/A | ✓   | Requires KB4019276        |
+| Windows 7/Windows Server 2008 R2 with Service Pack 1 (SP1) |     | ✓   |                           |
+| Windows Embedded POSReady 7                                | ✓   |     |                           |
+| Windows 8/Windows Server 2012                              | ✓   |     |                           |
+| Windows Embedded 8 Industry                                |     |     |                           |
+| Windows 8.1/Windows Server 2012 R2                         |     | ✓   |                           |
+| Windows Embedded 8.1 Industry                              | ✓   |     |                           |
+| Windows 10 & Windows Server 2016                           |     | ✓   |                           |
 
 ## In-Depth
 This section outlines in more detail what changes are made.
