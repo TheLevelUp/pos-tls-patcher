@@ -22,8 +22,8 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 ## Download and Installation
 Make sure to use the version which matches your architecture: 
 
-* [x86](/releases/latest) for 32-bit versions of Windows
-* [x64](/releases/latest) for 64-bit versions of Windows. 
+* [x86](../../releases/latest) for 32-bit versions of Windows
+* [x64](../../releases/latest) for 64-bit versions of Windows. 
 
 To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You will be prompted to restart your computer in order for the changes to take effect.
 
