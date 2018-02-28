@@ -20,12 +20,17 @@
 <?define Manufacturer="LevelUp" ?>
 <?define ProductName="LevelUp TLS 1.2 Patch" ?>
 
-<!--Installer-->
-<?define MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetDir)"?>
-<?define MsiTargetName="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetName)"?>
-<?define MsiTargetExt="$(var.LevelUp.Integrations.TlsPatcher.Installer.TargetExt)"?>
+<!--x86 Installer-->
+<?define x86MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.x86.TargetDir)"?>
+<?define x86MsiTargetName="$(var.LevelUp.Integrations.TlsPatcher.Installer.x86.TargetName)"?>
+<?define x86MsiTargetExt="$(var.LevelUp.Integrations.TlsPatcher.Installer.x86.TargetExt)"?>
+<?define x86MsiFileSource="$(var.x86MsiTargetDir)$(var.x86MsiTargetName)-$(var.GitVersion_NuGetVersion)_x86$(var.x86MsiTargetExt)"?>
 
-<?define MsiFileSource="$(var.MsiTargetDir)$(var.MsiTargetName)-$(var.GitVersion_NuGetVersion)_$(var.Platform)$(var.MsiTargetExt)"?>
+<!--x64 Installer-->
+<?define x64MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.x64.TargetDir)"?>
+<?define x64MsiTargetName="$(var.LevelUp.Integrations.TlsPatcher.Installer.x64.TargetName)"?>
+<?define x64MsiTargetExt="$(var.LevelUp.Integrations.TlsPatcher.Installer.x64.TargetExt)"?>
+<?define x64MsiFileSource="$(var.x64MsiTargetDir)$(var.x64MsiTargetName)-$(var.GitVersion_NuGetVersion)_x64$(var.x64MsiTargetExt)"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
@@ -33,28 +38,27 @@
 	<Bundle Name="$(var.ProductName)"
           Version="$(var.GitVersion_MajorMinorPatch)" Manufacturer="$(var.Manufacturer)"
           UpgradeCode="921843e8-09f5-4f60-b9d2-f298b7e85a84"
-	        IconSourceFile="$(var.ProjectDir)Images\levelup-logo.ico"
-	        SplashScreenSourceFile="$(var.ProjectDir)Images\levelup-logo.bmp">
-
-    <?if $(var.Platform)=x86 ?>
-	  <bal:Condition 
-      Message="You are attempting to run the x86 installer on a 64-bit system, please download and run the x64 installer instead">
-	    NOT(VersionNT64)
-	  </bal:Condition>
-    <?endif ?>
+	        IconSourceFile="$(var.SolutionDir)Images\levelup-logo.ico"
+	        SplashScreenSourceFile="$(var.SolutionDir)Images\levelup-logo.bmp">
 
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
 
       <bal:WixStandardBootstrapperApplication
         LicenseFile="$(var.ProjectDir)Miscellaneous\License.rtf"
-        LogoFile="$(var.ProjectDir)Images\levelup-logo-square.bmp"
+        LogoFile="$(var.SolutionDir)Images\levelup-logo-square.bmp"
         SuppressOptionsUI="yes"/>
       
     </BootstrapperApplicationRef>
 
 		<Chain>
-		  <PackageGroupRef Id="NetFx46Redist" />
-			<MsiPackage Vital="yes" SourceFile="$(var.MsiFileSource)" Compressed="yes" DisplayInternalUI="no"/>
+		  <PackageGroupRef Id="NetFx46Redist"/>
+			<MsiPackage SourceFile="$(var.x86MsiFileSource)"
+                  Vital="yes" Compressed="yes" DisplayInternalUI="no"
+                  InstallCondition="NOT(VersionNT64)"/>
+		  <MsiPackage SourceFile="$(var.x64MsiFileSource)"
+                  Vital="yes" Compressed="yes" DisplayInternalUI="no"
+                  InstallCondition="VersionNT64"/>
 		</Chain>
+    
 	</Bundle>
 </Wix>
