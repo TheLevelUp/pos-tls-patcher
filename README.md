@@ -21,7 +21,7 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 <!-- /TOC -->
 
 ## Download and Installation
-The latest version can be downloaded [here](../../releases/latest).
+[The latest version can be downloaded here](../../releases/latest).
 
 To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You may be prompted to restart your computer in order for the changes to take effect.
 
@@ -116,9 +116,9 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 
 `cd .\LevelUp.Integrations.TlsPatcher\`
 
-`nuget.exe restore <solution file>`
+`nuget.exe restore LevelUp.Integrations.TlsPatcher.sln`
 
-`MSBuild.exe <solution file> /p:Configuration=<Debug/Release> /p:Platform=<x86/x64>`
+`MSBuild.exe LevelUp.Integrations.TlsPatcher.sln /p:Configuration=<Debug/Release>`
 
 ## Usage
 If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
