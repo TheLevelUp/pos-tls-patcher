@@ -35,12 +35,12 @@
     <MediaTemplate EmbedCab="yes" />
 
     <!-- Configure Add/Remove Icons -->
-    <Icon Id="LevelUpIcon" SourceFile="$(var.ProjectDir)Images\levelup-logo.ico" />
+    <Icon Id="LevelUpIcon" SourceFile="$(var.SolutionDir)Images\levelup-logo.ico" />
     <Property Id="ARPPRODUCTICON" Value="LevelUpIcon" />
 
     <!-- Some Custom Graphics For The Installer -->
-    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)Images\levelup-banner.bmp"/>
-    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)Images\levelup-dialog.bmp"/>
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)Images\levelup-banner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)Images\levelup-dialog.bmp"/>
 
     <!-- Get User Information For Setting Permissions -->
     <PropertyRef Id="WIX_ACCOUNT_USERS" />

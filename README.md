@@ -6,6 +6,7 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 
 - [LevelUp TLS 1.2 Patcher](#levelup-tls-12-patcher)
     - [Download and Installation](#download-and-installation)
+    - [Compatibility](#compatibility)
     - [In-Depth](#in-depth)
         - [.NET Framework Version](#net-framework-version)
         - [.NET Framework registry keys](#net-framework-registry-keys)
@@ -20,12 +21,9 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 <!-- /TOC -->
 
 ## Download and Installation
-Make sure to use the version which matches your architecture: 
+The latest version can be downloaded [here](../../releases/latest).
 
-* [x86](../../releases/latest) for 32-bit versions of Windows
-* [x64](../../releases/latest) for 64-bit versions of Windows. 
-
-To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You will be prompted to restart your computer in order for the changes to take effect.
+To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You may be prompted to restart your computer in order for the changes to take effect.
 
 Minimum system requirements:
 * For one-click install with no other prerequisites: Windows 7 with Service Pack 1
@@ -37,9 +35,13 @@ The installer:
 * Writes a registry value which makes .NET 4.x code select the strongest enabled security protocol by default.
 * Writes registry values to explicitly enable TLS 1.2 for [WinSSL](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380123(v=vs.85).aspx).
 
+The patcher will appear in Add/Remove Programs. Uninstalling the patcher will delete the registry values it created, potentially disabling TLS 1.2. Uninstalling the patcher will not uninstall .NET 4.6. 
+
 For the rationale behind these changes, see the [in-depth](#in-depth) section below. 
 
 Some exceptions may apply. See the [limitations](#limitations) section below.
+
+## Compatibility
 
 See the table below for a list of systems verified to be compatible/incompatible with this utility. Cells which do not have an X or ✓ have not yet been tested, but we expect them to be compatible unless otherwise noted. N/A indicates that the Windows version does not have a release with the specified architecture.
 
