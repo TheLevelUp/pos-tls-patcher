@@ -34,8 +34,8 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
-  
-	<Bundle Name="$(var.ProductName)"
+
+  <Bundle Name="$(var.ProductName)"
           Version="$(var.GitVersion_MajorMinorPatch)" Manufacturer="$(var.Manufacturer)"
           UpgradeCode="921843e8-09f5-4f60-b9d2-f298b7e85a84"
 	        IconSourceFile="$(var.SolutionDir)Images\levelup-logo.ico"
@@ -47,18 +47,18 @@
         LicenseFile="$(var.ProjectDir)Miscellaneous\License.rtf"
         LogoFile="$(var.SolutionDir)Images\levelup-logo-square.bmp"
         SuppressOptionsUI="yes"/>
-      
+
     </BootstrapperApplicationRef>
 
-		<Chain>
-		  <PackageGroupRef Id="NetFx46Redist"/>
-			<MsiPackage SourceFile="$(var.x86MsiFileSource)"
+    <Chain>
+      <PackageGroupRef Id="NetFx46Web_ShowInstaller"/>
+      <MsiPackage SourceFile="$(var.x86MsiFileSource)"
                   Vital="yes" Compressed="yes" DisplayInternalUI="no"
                   InstallCondition="NOT(VersionNT64)"/>
-		  <MsiPackage SourceFile="$(var.x64MsiFileSource)"
+      <MsiPackage SourceFile="$(var.x64MsiFileSource)"
                   Vital="yes" Compressed="yes" DisplayInternalUI="no"
                   InstallCondition="VersionNT64"/>
-		</Chain>
-    
-	</Bundle>
+    </Chain>
+
+  </Bundle>
 </Wix>
