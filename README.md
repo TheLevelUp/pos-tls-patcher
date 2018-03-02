@@ -1,4 +1,4 @@
-# LevelUp TLS 1.2 Patcher
+# LevelUp TLS Patcher
 
 A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on Microsoft Windows Vista Service Pack 2 or later.
 
