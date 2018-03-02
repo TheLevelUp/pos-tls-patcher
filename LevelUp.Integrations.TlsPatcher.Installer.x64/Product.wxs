@@ -20,7 +20,7 @@
 
 
 <?define Manufacturer="LevelUp"?>
-<?define ProductName="LevelUp TLS 1.2 Patch" ?>
+<?define ProductName="LevelUp TLS Patcher $(var.GitVersion_MajorMinorPatch)" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
