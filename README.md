@@ -23,7 +23,7 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 ## Download and Installation
 [The latest version can be downloaded here](../../releases/latest).
 
-To install, simply run the installer and accept the license agreement. You must have administrative priveledges. You may be prompted to restart your computer in order for the changes to take effect.
+To install, simply run the installer and accept the license agreement. You must have administrative privileges. You may be prompted to restart your computer in order for the changes to take effect.
 
 Minimum system requirements:
 * For one-click install with no other prerequisites: Windows 7 with Service Pack 1
@@ -52,11 +52,11 @@ See the table below for a list of systems verified to be compatible/incompatible
 | Windows Embedded POSReady 2009                             | X   | N/A | Does not support .NET 4.6 |
 | Windows Vista with Service Pack 2 (SP2)                    |     | ✓   | Requires KB4019276        |
 | Windows Server 2008 with Service Pack 2 (SP2)              | N/A | ✓   | Requires KB4019276        |
-| Windows 7/Windows Server 2008 R2 with Service Pack 1 (SP1) |     | ✓   |                           |
+| Windows 7/Windows Server 2008 R2 with Service Pack 1 (SP1) | ✓   | ✓   |                           |
 | Windows Embedded POSReady 7                                | ✓   |     |                           |
-| Windows 8/Windows Server 2012                              | ✓   |     |                           |
+| Windows 8/Windows Server 2012                              | ✓   | ✓   |                           |
 | Windows Embedded 8 Industry                                |     |     |                           |
-| Windows 8.1/Windows Server 2012 R2                         |     | ✓   |                           |
+| Windows 8.1/Windows Server 2012 R2                         | ✓   | ✓   |                           |
 | Windows Embedded 8.1 Industry                              | ✓   |     |                           |
 | Windows 10 & Windows Server 2016                           |     | ✓   |                           |
 
