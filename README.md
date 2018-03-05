@@ -89,10 +89,6 @@ The following registry keys/values are set to enable the TLS 1.2 for SChannel.dl
 
 | Registry Key                                                                              | Value Name        | DWORD Data |
 | ----------------------------------------------------------------------------------------- | ----------------- | ---------- |
-| HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client     | Enabled           | 0x00000001 |
-| HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client     | DisabledByDefault | 0x00000000 |
-| HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server     | Enabled           | 0x00000001 |
-| HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server     | DisabledByDefault | 0x00000000 |
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client | Enabled           | 0x00000001 |
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client | DisabledByDefault | 0x00000000 |
 | HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server | Enabled           | 0x00000001 |
