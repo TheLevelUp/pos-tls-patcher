@@ -4,7 +4,7 @@ A simple installer which enables [Transport Layer Security](https://en.wikipedia
 
 <!-- TOC -->
 
-- [LevelUp TLS 1.2 Patcher](#levelup-tls-12-patcher)
+- [LevelUp TLS Patcher](#levelup-tls-patcher)
     - [Download and Installation](#download-and-installation)
     - [Compatibility](#compatibility)
     - [In-Depth](#in-depth)
@@ -58,7 +58,7 @@ See the table below for a list of systems verified to be compatible/incompatible
 | Windows Embedded 8 Industry                                |     |     |                           |
 | Windows 8.1/Windows Server 2012 R2                         | ✓   | ✓   |                           |
 | Windows Embedded 8.1 Industry                              | ✓   |     |                           |
-| Windows 10 & Windows Server 2016                           |     | ✓   |                           |
+| Windows 10 & Windows Server 2016                           | ✓   | ✓   |                           |
 
 ## In-Depth
 This section outlines in more detail what changes are made.
