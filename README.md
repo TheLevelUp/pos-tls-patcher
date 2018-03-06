@@ -100,7 +100,7 @@ To build this Visual Studio solution (`.sln`) you must have the following compon
 * Visual Studio 2017/MSBuild 15.0
 * Powershell
 * NuGet CLI - The nuget command must be available from your command line.
-* [Wix Toolset v3.11](http://wixtoolset.org/releases/)
+* [WiX Toolset v3.11](http://wixtoolset.org/releases/)
 
 ### Certificate Signing
 LevelUp signs its installers by hooking into MSBuild. If you build this project on your own machine, you may ignore the following warning message:
@@ -110,16 +110,16 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 ### Build Instructions
 `git clean -fdx`
 
-`cd .\LevelUp.Integrations.TlsPatcher\`
-
 `nuget.exe restore LevelUp.Integrations.TlsPatcher.sln`
 
 `MSBuild.exe LevelUp.Integrations.TlsPatcher.sln /p:Configuration=<Debug/Release>`
 
-## Usage
-If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
+For convenience, the build process will create a folder named Deployment in the root directory, and the outputted files will be copied there. 
 
-If you want to include just the registry changes in a Wix Installer project, you can add a reference to [Tls12RegistryComponents.wxi](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Installer/Tls12RegistryComponents.wxi) file and [add an include statement in your Product.wxs file](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Installer/Product.wxs#L84). 
+## Usage
+If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
+
+If you want to include just the registry changes in a WiX Installer project, you can add the [Tls12RegistryComponents.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Tls12RegistryComponents.wxs) file and [add a ComponentGroupRef to "Tls12RegistryComponents" in your Product.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Product.wxs#L78).
 
 ## Limitations
 The patcher is expected to work for .NET 4.x code provided that the current code is not overriding the defaults by explicitly specifying a different protocol. If this is not the case, code changes will be necessary. If you wish to make use of this patcher, you can simply remove any lines where you set the value of `ServicePointManager.SecurityProtocol`.

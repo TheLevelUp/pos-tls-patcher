@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<copyright file="Tls12RegistryComponents.wxi" company="SCVNGR, Inc. d/b/a LevelUp">
+     Copyright(c) 2018 SCVNGR, Inc. d/b/a LevelUp. All rights reserved.
+  
+</copyright>
+<license publisher="Apache Software Foundation" date="January 2004" version="2.0">
+     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+     in compliance with the License. You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software distributed under the License
+     is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+     or implied. See the License for the specific language governing permissions and limitations under
+     the License.
+</license>
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir"/>
+
+    <ComponentGroup Id="Tls12RegistryComponents" Directory="TARGETDIR">
+      <?define CurrentControlSet="SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols"?>
+
+      <Component>
+        <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Client"
+                       Name="Enabled" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <Component>
+        <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
+                       Name="Enabled" Type="integer" Value="1" Action="write"/>
+      </Component>
+      <Component>
+        <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Client"
+                       Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
+      </Component>
+      <Component>
+        <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
+                       Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
+      </Component>
+      <Component Win64="no">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
+                       Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?if $(var.Platform)=x64 ?>
+      <Component Id="StrongCrypto64Key" Win64="yes">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
+                       Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?endif ?>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

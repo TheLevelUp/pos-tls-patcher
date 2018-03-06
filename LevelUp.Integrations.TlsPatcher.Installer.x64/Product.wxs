@@ -17,8 +17,6 @@
 </license>
 -->
 
-
-
 <?define Manufacturer="LevelUp"?>
 <?define ProductName="LevelUp TLS Patcher v$(var.GitVersion_MajorMinorPatch)" ?>
 
@@ -55,7 +53,7 @@
     <!--Simple dialog flow copied from: https://stackoverflow.com/a/259685 -->
     <UI Id="UserInterface">
       <UIRef Id="WixUI_Common" />
-      
+
       <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR" />
       <Property Id="WixUI_Mode" Value="Custom" />
 
@@ -77,9 +75,7 @@
     </UI>
 
     <Feature Id="ProductFeature" Title="LevelUp.Integrations.TlsPatcher.Installer" Level="1">
-      <ComponentGroupRef Id="RegistryComponents" />
+      <ComponentGroupRef Id="Tls12RegistryComponents" />
     </Feature>
   </Product>
-
-  <?include Tls12RegistryComponents.wxi ?>
 </Wix>
