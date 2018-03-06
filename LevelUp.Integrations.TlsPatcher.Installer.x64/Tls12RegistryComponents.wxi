@@ -24,7 +24,6 @@
   
   <ComponentGroup Id="RegistryComponents" Directory="TARGETDIR">
     <?define CurrentControlSet="SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols"?>
-    <?define ControlSet1="SYSTEM\ControlSet001\Control\SecurityProviders\SCHANNEL\Protocols"?>
 
     <Component>
       <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Client"
@@ -40,22 +39,6 @@
     </Component>
     <Component>
       <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
-                     Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
-    </Component>
-    <Component>
-      <RegistryValue Root="HKLM" Key="$(var.ControlSet1)\TLS 1.2\Client"
-                     Name="Enabled" Type="integer" Value="1" Action="write" KeyPath="yes"/>
-    </Component>
-    <Component>
-      <RegistryValue Root="HKLM" Key="$(var.ControlSet1)\TLS 1.2\Server"
-                     Name="Enabled" Type="integer" Value="1" Action="write"/>
-    </Component>
-    <Component>
-      <RegistryValue Root="HKLM" Key="$(var.ControlSet1)\TLS 1.2\Client"
-                     Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
-    </Component>
-    <Component>
-      <RegistryValue Root="HKLM" Key="$(var.ControlSet1)\TLS 1.2\Server"
                      Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
     </Component>
     <Component Win64="no">
