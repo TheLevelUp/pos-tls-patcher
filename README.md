@@ -110,16 +110,14 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 ### Build Instructions
 `git clean -fdx`
 
-`cd .\LevelUp.Integrations.TlsPatcher\`
-
 `nuget.exe restore LevelUp.Integrations.TlsPatcher.sln`
 
 `MSBuild.exe LevelUp.Integrations.TlsPatcher.sln /p:Configuration=<Debug/Release>`
 
 ## Usage
-If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
+If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
 
-If you want to include just the registry changes in a Wix Installer project, you can add the [Tls12RegistryComponents.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Installer.x64/Tls12RegistryComponents.wxs) file and [add a ComponentGroupRef to "Tls12RegistryComponents" in your Product.wxs](LevelUp.Integrations.TlsPatcher/LevelUp.Integrations.TlsPatcher.Installer.x64/Product.wxs#L78). 
+If you want to include just the registry changes in a Wix Installer project, you can add the [Tls12RegistryComponents.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Tls12RegistryComponents.wxs) file and [add a ComponentGroupRef to "Tls12RegistryComponents" in your Product.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Product.wxs#L78). 
 
 ## Limitations
 The patcher is expected to work for .NET 4.x code provided that the current code is not overriding the defaults by explicitly specifying a different protocol. If this is not the case, code changes will be necessary. If you wish to make use of this patcher, you can simply remove any lines where you set the value of `ServicePointManager.SecurityProtocol`.
