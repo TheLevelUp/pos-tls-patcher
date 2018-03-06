@@ -114,6 +114,8 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 
 `MSBuild.exe LevelUp.Integrations.TlsPatcher.sln /p:Configuration=<Debug/Release>`
 
+For convenience, the build process will create a folder named Deployment in the root directory, and the outputted files will be copied there. 
+
 ## Usage
 If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
 
