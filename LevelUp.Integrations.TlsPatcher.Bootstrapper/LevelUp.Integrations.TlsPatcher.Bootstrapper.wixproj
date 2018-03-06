@@ -91,7 +91,7 @@
     <PropertyGroup>
       <BuildScriptSourceDir>$(SolutionDir)BuildScripts\</BuildScriptSourceDir>
       <BuildScriptSourceDirSignBootstrapper>$(BuildScriptSourceDir)SignBootstrapper.ps1</BuildScriptSourceDirSignBootstrapper>
-      <BuildTargetFilename>$(TargetName)-$(GitVersion_NuGetVersion)_x86_x64$(TargetExt)</BuildTargetFilename>
+      <BuildTargetFilename>TlsPatcher-$(GitVersion_NuGetVersion)$(TargetExt)</BuildTargetFilename>
       <BuildTargetPath>$(TargetDir)$(BuildTargetFilename)</BuildTargetPath>
       <DeployTargetDir>$(SolutionDir)Deployment\</DeployTargetDir>
       <DeployTargetPath>$(DeployTargetDir)$(BuildTargetFilename)</DeployTargetPath>
