@@ -20,10 +20,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
+    <Compile Include="Tls12RegistryComponents.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Tls12RegistryComponents.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

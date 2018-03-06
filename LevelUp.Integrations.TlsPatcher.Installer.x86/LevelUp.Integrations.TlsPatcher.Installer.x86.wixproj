@@ -22,9 +22,9 @@
     <Content Include="..\LevelUp.Integrations.TlsPatcher.Installer.x64\packages.config">
       <Link>packages.config</Link>
     </Content>
-    <Content Include="..\LevelUp.Integrations.TlsPatcher.Installer.x64\Tls12RegistryComponents.wxi">
-      <Link>Tls12RegistryComponents.wxi</Link>
-    </Content>
+    <Compile Include="..\LevelUp.Integrations.TlsPatcher.Installer.x64\Tls12RegistryComponents.wxs">
+      <Link>Tls12RegistryComponents.wxs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\LevelUp.Integrations.TlsPatcher.Installer.x64\Product.wxs">
