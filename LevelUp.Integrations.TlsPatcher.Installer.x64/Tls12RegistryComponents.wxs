@@ -49,6 +49,16 @@
                        Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
       <?endif ?>
+      <Component Win64="no">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
+                       Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?if $(var.Platform)=x64 ?>
+      <Component Id="SystemdDefaultTls64Key" Win64="yes">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
+                       Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?endif ?>
     </ComponentGroup>
   </Fragment>
 </Wix>
