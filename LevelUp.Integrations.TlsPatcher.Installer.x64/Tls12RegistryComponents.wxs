@@ -53,7 +53,7 @@
       </Component>
       <?endif ?>
       
-      <!--.NET 3.5-->
+      <!--.NET 3.5/2.0-->
       <Component Win64="no">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
                        Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
