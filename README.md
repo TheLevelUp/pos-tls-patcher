@@ -1,6 +1,7 @@
 # LevelUp TLS Patcher
 
 A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on Microsoft Windows Vista Service Pack 2 or later.
+
 The patcher is designed to make .NET 4.x applications use TLS 1.2 without needing any code changes. It may also work for some applications targeting lower version of .NET.
 
 <!-- TOC -->
