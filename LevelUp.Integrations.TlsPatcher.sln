@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "LevelUp.Integrations.TlsPatcher.Installer.x64", "LevelUp.Integrations.TlsPatcher.Installer.x64\LevelUp.Integrations.TlsPatcher.Installer.x64.wixproj", "{92CFFE8D-7993-4EEF-978C-9805ECD86C3E}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "LevelUp.Integrations.TlsPatcher.Bootstrapper", "LevelUp.Integrations.TlsPatcher.Bootstrapper\LevelUp.Integrations.TlsPatcher.Bootstrapper.wixproj", "{57146354-D178-42F9-9778-DA8AEB926BD9}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "LevelUp.Integrations.TlsPatcher.Bootstrapper", "LevelUp.Integrations.TlsPatcher.Bootstrapper\LevelUp.Integrations.TlsPatcher.Bootstrapper.wixproj", "{921843E8-09F5-4F60-B9D2-F298B7E85A84}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "LevelUp.Integrations.TlsPatcher.Installer.x86", "LevelUp.Integrations.TlsPatcher.Installer.x86\LevelUp.Integrations.TlsPatcher.Installer.x86.wixproj", "{CD2F7734-4B17-431A-9B80-B43CBAC1D336}"
 EndProject
@@ -33,10 +33,10 @@ Global
 		{92CFFE8D-7993-4EEF-978C-9805ECD86C3E}.Debug|x86_x64.Build.0 = Debug|x64
 		{92CFFE8D-7993-4EEF-978C-9805ECD86C3E}.Release|x86_x64.ActiveCfg = Release|x64
 		{92CFFE8D-7993-4EEF-978C-9805ECD86C3E}.Release|x86_x64.Build.0 = Release|x64
-		{57146354-D178-42F9-9778-DA8AEB926BD9}.Debug|x86_x64.ActiveCfg = Debug|x86
-		{57146354-D178-42F9-9778-DA8AEB926BD9}.Debug|x86_x64.Build.0 = Debug|x86
-		{57146354-D178-42F9-9778-DA8AEB926BD9}.Release|x86_x64.ActiveCfg = Release|x86
-		{57146354-D178-42F9-9778-DA8AEB926BD9}.Release|x86_x64.Build.0 = Release|x86
+		{921843E8-09F5-4F60-B9D2-F298B7E85A84}.Debug|x86_x64.ActiveCfg = Debug|x86
+		{921843E8-09F5-4F60-B9D2-F298B7E85A84}.Debug|x86_x64.Build.0 = Debug|x86
+		{921843E8-09F5-4F60-B9D2-F298B7E85A84}.Release|x86_x64.ActiveCfg = Release|x86
+		{921843E8-09F5-4F60-B9D2-F298B7E85A84}.Release|x86_x64.Build.0 = Release|x86
 		{CD2F7734-4B17-431A-9B80-B43CBAC1D336}.Debug|x86_x64.ActiveCfg = Debug|x86
 		{CD2F7734-4B17-431A-9B80-B43CBAC1D336}.Debug|x86_x64.Build.0 = Debug|x86
 		{CD2F7734-4B17-431A-9B80-B43CBAC1D336}.Release|x86_x64.ActiveCfg = Release|x86
