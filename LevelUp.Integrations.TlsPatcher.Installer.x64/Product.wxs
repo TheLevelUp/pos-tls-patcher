@@ -77,9 +77,19 @@
     <Feature Id="ProductFeature" Title="LevelUp.Integrations.TlsPatcher.Installer" Level="1">
       <ComponentGroupRef Id="Tls12RegistryComponents" />
 
-      <Component Id="DetectionKey" Directory="TARGETDIR">
-        <RegistryValue Root="HKLM" Key="SOFTWARE\LevelUp\TLSPatcher" Name="Version" Type="string" Value="$(var.GitVersion_MajorMinorPatch)" KeyPath="yes" />
+      <Component Id="DetectionKey" Directory="TARGETDIR" Win64="no">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\LevelUp" Name="TlsPatcherVersion"
+                       Type="string" Value="$(var.GitVersion_MajorMinorPatch)" 
+                       KeyPath="yes" />
       </Component>
+
+      <?if $(var.Platform)=x64 ?>
+      <Component Id="DetectionKey_x64" Directory="TARGETDIR" Win64="yes">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\LevelUp" Name="TlsPatcherVersion"
+                       Type="string" Value="$(var.GitVersion_MajorMinorPatch)"
+                       KeyPath="yes" />
+      </Component>
+      <?endif ?>
     </Feature>
   </Product>
 </Wix>
