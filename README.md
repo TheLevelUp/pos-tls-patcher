@@ -140,9 +140,54 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 For convenience, the build process will create a folder named Deployment in the root directory, and the outputted files will be copied there. 
 
 ## Usage
-If you wish to include this patch as part of an installer, you can modify [Bundle.wxs](LevelUp.Integrations.TlsPatcher.Bootstrapper/Bundle.wxs) to include your installer as an additional package element within the [Chain](http://wixtoolset.org/documentation/manual/v3/xsd/wix/chain.html) element. 
+If you wish to include the TLS Patcher as part of an installer, you can include it as part of a WiX Bootstrapper. 
 
-If you want to include just the registry changes in a WiX Installer project, you can add the [Tls12RegistryComponents.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Tls12RegistryComponents.wxs) file and [add a ComponentGroupRef to "Tls12RegistryComponents" in your Product.wxs](LevelUp.Integrations.TlsPatcher.Installer.x64/Product.wxs#L78).
+To facilitate this, beginning with v1.1.0, the patcher writes a set of registry values which can be used to detect what version, if any, is currently installed on a system. The version information can be used in the `DetectCondition` of the [ExePackage](http://wixtoolset.org/documentation/manual/v3/xsd/wix/exepackage.html) definition so that the patcher installation will be suppressed if the same or higher version already exists on the system.
+
+The following code snippet shows how you could include v1.1.0 of the TLS Patcher  in a bootstrapper project, assuming that the .exe is placed in a folder named "Dependencies" within the bootstraper project.
+
+```xml
+<Bundle>
+    <!-- ... -->
+
+    <Chain DisableSystemRestore="no">
+
+      <PackageGroupRef Id="TlsPatcher" />
+
+      <!--Other packages-->
+
+    </Chain>
+
+</Bundle>
+
+<Fragment>
+    <?define BundledTlsPatcherVersion="1.1.0"?>
+
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\LevelUp" Value="TlsPatcherVersion"
+                            Format="raw" Win64="no" Variable="ExistingTlsPatcherVersion" />
+
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\LevelUp" Value="TlsPatcherVersion"
+                            Format="raw" Win64="yes" Variable="ExistingTlsPatcherVersion64" />
+
+    <Variable Name="BundledTlsPatcherVersion" Value="$(var.BundledTlsVersion)" Type="version"/>
+        
+    <PackageGroup Id="TlsPatcher">
+        <ExePackage
+        Id="TlsPatcher"
+        Name="TlsPatcher-$(var.BundledTlsPatcherVersion).exe"
+        SourceFile="$(var.ProjectDir)Dependencies\TlsPatcher-$(var.BundledTlsPatcherVersion).exe"
+        DetectCondition="ExistingTlsPatcherVersion &gt;= BundledTlsPatcherVersion AND (NOT VersionNT64 OR ExistingTlsPatcherVersion64 &gt;= BundledTlsPatcherVersion)"
+        InstallCommand="/q"
+        RepairCommand="/q /repair"
+        PerMachine="yes"
+        Vital="yes"
+        Permanent="yes"
+        Compressed="yes" />
+    </PackageGroup>
+</Fragment>    
+```
+
+
 
 ## Limitations
 The patcher is expected to work for .NET 4.x code provided that the current code is not overriding the defaults by explicitly specifying a different protocol. If this is not the case, code changes will be necessary. If you wish to make use of this patcher, you can simply remove any lines where you set the value of `ServicePointManager.SecurityProtocol`.
