@@ -19,7 +19,7 @@ The patcher is designed to make .NET 4.x applications use TLS 1.2 without needin
     - [Build Requirements](#build-requirements)
         - [Certificate Signing](#certificate-signing)
         - [Build Instructions](#build-instructions)
-    - [Usage](#usage)
+    - [Adding TLS Patcher to a WiX Bootstrapper Project](#adding-tls-patcher-to-a-wix-bootstrapper-project)
     - [Limitations](#limitations)
     - [License](#license)
 
@@ -139,7 +139,7 @@ LevelUp signs its installers by hooking into MSBuild. If you build this project 
 
 For convenience, the build process will create a folder named Deployment in the root directory, and the outputted files will be copied there. 
 
-## Usage
+## Adding TLS Patcher to a WiX Bootstrapper Project
 If you wish to include the TLS Patcher as part of an installer, you can include it as part of a WiX Bootstrapper. 
 
 To facilitate this, beginning with v1.1.0, the patcher writes a set of registry values which can be used to detect what version, if any, is currently installed on a system. The version information can be used in the `DetectCondition` of the [ExePackage](http://wixtoolset.org/documentation/manual/v3/xsd/wix/exepackage.html) definition so that the patcher installation will be suppressed if the same or higher version already exists on the system.
