@@ -187,8 +187,6 @@ The following code snippet shows how you could include v1.1.0 of the TLS Patcher
 </Fragment>    
 ```
 
-
-
 ## Limitations
 The patcher is expected to work for .NET 4.x code provided that the current code is not overriding the defaults by explicitly specifying a different protocol. If this is not the case, code changes will be necessary. If you wish to make use of this patcher, you can simply remove any lines where you set the value of `ServicePointManager.SecurityProtocol`.
 
