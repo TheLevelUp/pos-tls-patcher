@@ -21,6 +21,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir"/>
 
     <ComponentGroup Id="Tls12RegistryComponents" Directory="TARGETDIR">
+      <!--SChannel-->
       <?define CurrentControlSet="SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols"?>
 
       <Component>
@@ -39,6 +40,8 @@
         <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
                        Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
       </Component>
+      
+      <!--.NET 4.x-->
       <Component Win64="no">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
                        Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
@@ -47,6 +50,18 @@
       <Component Id="StrongCrypto64Key" Win64="yes">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
                        Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?endif ?>
+      
+      <!--.NET 3.5/2.0-->
+      <Component Win64="no">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
+                       Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
+      </Component>
+      <?if $(var.Platform)=x64 ?>
+      <Component Id="SystemdDefaultTls64Key" Win64="yes">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
+                       Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
       <?endif ?>
     </ComponentGroup>
