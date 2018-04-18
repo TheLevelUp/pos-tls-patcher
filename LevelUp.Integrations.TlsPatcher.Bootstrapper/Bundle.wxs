@@ -51,7 +51,7 @@
     </BootstrapperApplicationRef>
 
     <Chain>
-      <PackageGroupRef Id="NetFx46Web_ShowInstaller"/>
+      <PackageGroupRef Id="NetFx46Web_ShowInstaller" />
       <MsiPackage SourceFile="$(var.x86MsiFileSource)"
                   Vital="yes" Compressed="yes" DisplayInternalUI="no"
                   InstallCondition="NOT(VersionNT64)"/>
