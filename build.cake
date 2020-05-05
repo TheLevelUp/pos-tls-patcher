@@ -73,36 +73,12 @@ Task("Build")
     });
 });
 
-Task("Test")
-    .IsDependentOn("Build")
-    .Does(() =>
-{
-        OpenCover(
-            tool => tool.VSTest("**/bin/**/*Tests.dll"),
-            new FilePath("./coverage.xml"),
-            new OpenCoverSettings { ReturnTargetCodeOffset = 0, OldStyle = true, Register = "Path32" }.WithFilter("+[*LevelUp*]LevelUp*").WithFilter("-[*Tests*]*")
-        );
-
-        if(AppVeyor.IsRunningOnAppVeyor)
-        {
-            CoverallsIo("./coverage.xml", new CoverallsIoSettings {
-                RepoToken = EnvironmentVariable("COVERALLS_TOKEN")
-            });
-        }
-        else
-        {
-            ReportGenerator("./coverage.xml", "./coverage", new ReportGeneratorSettings {
-                ReportTypes = new[] { ReportGeneratorReportType.HtmlSummary }
-            });
-        }
-});
-
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
