@@ -18,14 +18,14 @@
     <PropertyGroup>
       <BuildScriptSourceDir>$(SolutionDir)BuildScripts\</BuildScriptSourceDir>
       <BuildScriptSourceDirSignInstaller>$(BuildScriptSourceDir)SignInstaller.ps1</BuildScriptSourceDirSignInstaller>
-      <BuildTargetPath>$(TargetDir)$(TargetName)-$(GitVersion_NuGetVersion)_$(Platform)$(TargetExt)</BuildTargetPath>
+      <BuildTargetFullPath>$(TargetDir)$(TargetName)-$(GitVersion_NuGetVersion)_$(Platform)$(TargetExt)</BuildTargetFullPath>
       <DeployTargetDir>$(SolutionDir)artifacts\</DeployTargetDir>
       <DeployTargetPath>$(DeployTargetDir)$(TargetName)-$(GitVersion_NuGetVersion)$(TargetExt)</DeployTargetPath>
     </PropertyGroup>
   </Target>
   <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build">
     <PropertyGroup>
-      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetPath)' -force"</PsAddVersionToFilename>
+      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetFullPath)' -force"</PsAddVersionToFilename>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsAddVersionToFilename)" />
   </Target>
@@ -33,7 +33,7 @@
     <Message Text="Copying installer to $(DeployTargetDir)" Importance="High" />
     <PropertyGroup>
       <PsCopyToDeploymentFolderCreateDir>"if (!(Test-Path -path '$(DeployTargetDir)')) {New-Item '$(DeployTargetDir)' -Type Directory}"</PsCopyToDeploymentFolderCreateDir>
-      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
+      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetFullPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCreateDir)" />
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCopyFile)" />

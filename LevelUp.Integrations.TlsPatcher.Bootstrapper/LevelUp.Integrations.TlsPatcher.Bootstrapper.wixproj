@@ -82,14 +82,14 @@
       <BuildScriptSourceDir>$(SolutionDir)BuildScripts\</BuildScriptSourceDir>
       <BuildScriptSourceDirSignBootstrapper>$(BuildScriptSourceDir)SignBootstrapper.ps1</BuildScriptSourceDirSignBootstrapper>
       <BuildTargetFilename>TlsPatcher-$(GitVersion_NuGetVersion)$(TargetExt)</BuildTargetFilename>
-      <BuildTargetPath>$(TargetDir)$(BuildTargetFilename)</BuildTargetPath>
+      <BuildTargetFullPath>$(TargetDir)$(BuildTargetFilename)</BuildTargetFullPath>
       <DeployTargetDir>$(SolutionDir)artifacts\</DeployTargetDir>
       <DeployTargetPath>$(DeployTargetDir)$(BuildTargetFilename)</DeployTargetPath>
     </PropertyGroup>
   </Target>
   <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build">
     <PropertyGroup>
-      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetPath)' -force"</PsAddVersionToFilename>
+      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetFullPath)' -force"</PsAddVersionToFilename>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsAddVersionToFilename)" />
   </Target>
@@ -97,7 +97,7 @@
     <Message Text="Copying installer to $(DeployTargetDir)" Importance="High" />
     <PropertyGroup>
       <PsCopyToDeploymentFolderCreateDir>"if (!(Test-Path -path '$(DeployTargetDir)')) {New-Item '$(DeployTargetDir)' -Type Directory}"</PsCopyToDeploymentFolderCreateDir>
-      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
+      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetFullPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCreateDir)" />
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCopyFile)" />
