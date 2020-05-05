@@ -6,7 +6,7 @@ build_script:
 test: off
 
 artifacts:
-  - path: 'artifacts\*'
+  - path: 'artifacts\*.exe'
 
 deploy:
   provider: Environment

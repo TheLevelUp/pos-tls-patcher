@@ -18,7 +18,7 @@
 -->
 
 <?define Manufacturer="LevelUp" ?>
-<?define ProductName="LevelUp TLS Patcher v$(var.GitVersion_MajorMinorPatch)" ?>
+<?define ProductName="TLS Patcher v$(var.GitVersion_MajorMinorPatch)" ?>
 
 <!--x86 Installer-->
 <?define x86MsiTargetDir="$(var.LevelUp.Integrations.TlsPatcher.Installer.x86.TargetDir)"?>
