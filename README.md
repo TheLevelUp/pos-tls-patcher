@@ -40,7 +40,7 @@ The installer:
 * Writes a registry value which makes .NET 4.x code select the strongest enabled security protocol by default.
 * Writes registry values to explicitly enable TLS 1.2 for [WinSSL](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380123(v=vs.85).aspx).
 
-The patcher will appear in Add/Remove Programs. Uninstalling the patcher will delete the registry values it created, potentially disabling TLS 1.2. Uninstalling the patcher will not uninstall .NET 4.6. 
+The patcher will appear in Add/Remove Programs. Uninstalling the patcher will not delete the registry values it created (in v1.1.0 and prior it will delete them, and could disable TLS 1.2 as a result). Uninstalling the patcher will not uninstall .NET 4.6. 
 
 For the rationale behind these changes, see the [in-depth](#in-depth) section below. 
 
@@ -125,19 +125,10 @@ To build this Visual Studio solution (`.sln`) you must have the following compon
 * NuGet CLI - The nuget command must be available from your command line.
 * [WiX Toolset v3.11](http://wixtoolset.org/releases/)
 
-### Certificate Signing
-LevelUp signs its installers by hooking into MSBuild. If you build this project on your own machine, you may ignore the following warning message:
-
-> warning : The LevelUp certificate cannot be found; no files will be signed.
-
 ### Build Instructions
-`git clean -fdx`
+`.\build.ps1 -Configuration=<Debug/Release>`
 
-`nuget.exe restore LevelUp.Integrations.TlsPatcher.sln`
-
-`MSBuild.exe LevelUp.Integrations.TlsPatcher.sln /p:Configuration=<Debug/Release>`
-
-For convenience, the build process will create a folder named Deployment in the root directory, and the outputted files will be copied there. 
+For convenience, the build process will create a folder named `artifacts` in the root directory, and the outputted files will be copied there. 
 
 ## Adding TLS Patcher to a WiX Bootstrapper Project
 If you wish to include the TLS Patcher as part of an installer, you can include it as part of a WiX Bootstrapper. 

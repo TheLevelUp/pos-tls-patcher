@@ -41,8 +41,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props'))" />
     <Error Condition="!Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets'))" />
-    <Error Condition="!Exists('..\packages\LevelUp.Build.CodeSigning.1.1.0\build\LevelUp.Build.CodeSigning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LevelUp.Build.CodeSigning.1.1.0\build\LevelUp.Build.CodeSigning.targets'))" />
   </Target>
   <Import Project="..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets')" />
-  <Import Project="..\packages\LevelUp.Build.CodeSigning.1.1.0\build\LevelUp.Build.CodeSigning.targets" Condition="Exists('..\packages\LevelUp.Build.CodeSigning.1.1.0\build\LevelUp.Build.CodeSigning.targets')" />
 </Project>
