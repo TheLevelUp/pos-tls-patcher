@@ -87,13 +87,13 @@
       <DeployTargetPath>$(DeployTargetDir)$(BuildTargetFilename)</DeployTargetPath>
     </PropertyGroup>
   </Target>
-  <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build" BeforeTargets="CodeSigning">
+  <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build">
     <PropertyGroup>
       <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetFullPath)' -force"</PsAddVersionToFilename>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsAddVersionToFilename)" />
   </Target>
-  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="CodeSigning">
+  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="AddVersionToFilename">
     <Message Text="Copying installer to $(DeployTargetDir)" Importance="High" />
     <PropertyGroup>
       <PsCopyToDeploymentFolderCreateDir>"if (!(Test-Path -path '$(DeployTargetDir)')) {New-Item '$(DeployTargetDir)' -Type Directory}"</PsCopyToDeploymentFolderCreateDir>
