@@ -1,4 +1,4 @@
-# LevelUp TLS Patcher
+# TLS Patcher
 
 A simple installer which enables [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS) 1.2 on Microsoft Windows Vista Service Pack 2 or later.
 
@@ -6,7 +6,7 @@ The patcher is designed to make .NET 4.x applications use TLS 1.2 without needin
 
 <!-- TOC -->
 
-- [LevelUp TLS Patcher](#levelup-tls-patcher)
+- [TLS Patcher](#tls-patcher)
     - [Download and Installation](#download-and-installation)
     - [Compatibility](#compatibility)
     - [In-Depth](#in-depth)
@@ -17,7 +17,6 @@ The patcher is designed to make .NET 4.x applications use TLS 1.2 without needin
             - [Note on 32-bit vs 64-bit registry values](#note-on-32-bit-vs-64-bit-registry-values)
         - [SChannel registry keys](#schannel-registry-keys)
     - [Build Requirements](#build-requirements)
-        - [Certificate Signing](#certificate-signing)
         - [Build Instructions](#build-instructions)
     - [Adding TLS Patcher to a WiX Bootstrapper Project](#adding-tls-patcher-to-a-wix-bootstrapper-project)
     - [Limitations](#limitations)
