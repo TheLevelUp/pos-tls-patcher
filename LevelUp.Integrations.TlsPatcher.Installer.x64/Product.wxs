@@ -32,14 +32,6 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- Configure Add/Remove Icons -->
-    <Icon Id="LevelUpIcon" SourceFile="$(var.SolutionDir)Images\levelup-logo.ico" />
-    <Property Id="ARPPRODUCTICON" Value="LevelUpIcon" />
-
-    <!-- Some Custom Graphics For The Installer -->
-    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)Images\levelup-banner.bmp"/>
-    <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)Images\levelup-dialog.bmp"/>
-
     <!-- Get User Information For Setting Permissions -->
     <PropertyRef Id="WIX_ACCOUNT_USERS" />
 

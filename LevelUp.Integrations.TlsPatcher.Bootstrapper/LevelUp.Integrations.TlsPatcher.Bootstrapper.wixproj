@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props" Condition="Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -68,13 +69,6 @@
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
-  <Import Project="..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets'))" />
-  </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
@@ -83,46 +77,27 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
-  <!-- Arbitrary event that ensures GitVersionTask loads GitVersion environment variables -->
-  <Target Name="GetAssemblyVersion" BeforeTargets="EnsureWixToolsetInstalled">
-    <Message Text="Triggering GetAssemblyVersion..." Importance="High" />
-  </Target>
   <Target Name="SharedProperties">
     <PropertyGroup>
       <BuildScriptSourceDir>$(SolutionDir)BuildScripts\</BuildScriptSourceDir>
       <BuildScriptSourceDirSignBootstrapper>$(BuildScriptSourceDir)SignBootstrapper.ps1</BuildScriptSourceDirSignBootstrapper>
       <BuildTargetFilename>TlsPatcher-$(GitVersion_NuGetVersion)$(TargetExt)</BuildTargetFilename>
-      <BuildTargetPath>$(TargetDir)$(BuildTargetFilename)</BuildTargetPath>
-      <DeployTargetDir>$(SolutionDir)Deployment\</DeployTargetDir>
+      <BuildTargetFullPath>$(TargetDir)$(BuildTargetFilename)</BuildTargetFullPath>
+      <DeployTargetDir>$(SolutionDir)artifacts\</DeployTargetDir>
       <DeployTargetPath>$(DeployTargetDir)$(BuildTargetFilename)</DeployTargetPath>
-      <PsSignBootstrapperBuildScript>"&amp; '$(BuildScriptSourceDirSignBootstrapper)' '$(TargetDir)' '$(BuildTargetFilename)'"</PsSignBootstrapperBuildScript>
     </PropertyGroup>
-  </Target>
-  <Target Name="SendGetVersionToWix" AfterTargets="GetVersion">
-    <Message Text="GitVersion Found, GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch)" Importance="High" />
-    <CreateProperty Value="GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch);$(DefineConstants)">
-      <Output TaskParameter="Value" PropertyName="DefineConstants" />
-    </CreateProperty>
-    <Message Text="GitVersion Found, GitVersion_NuGetVersion=$(GitVersion_NuGetVersion)" Importance="High" />
-    <CreateProperty Value="GitVersion_NuGetVersion=$(GitVersion_NuGetVersion);$(DefineConstants)">
-      <Output TaskParameter="Value" PropertyName="DefineConstants" />
-    </CreateProperty>
   </Target>
   <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build">
     <PropertyGroup>
-      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetPath)' -force"</PsAddVersionToFilename>
+      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetFullPath)' -force"</PsAddVersionToFilename>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsAddVersionToFilename)" />
   </Target>
-  <Target Name="SignMsi" DependsOnTargets="SharedProperties" AfterTargets="AddVersionToFilename">
-    <Message Text="Executing $(PsSignBootstrapperBuildScript)" Importance="High" />
-    <Exec Command="powershell -Command  $(PsSignBootstrapperBuildScript)" />
-  </Target>
-  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="SignMsi">
+  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="AddVersionToFilename">
     <Message Text="Copying installer to $(DeployTargetDir)" Importance="High" />
     <PropertyGroup>
       <PsCopyToDeploymentFolderCreateDir>"if (!(Test-Path -path '$(DeployTargetDir)')) {New-Item '$(DeployTargetDir)' -Type Directory}"</PsCopyToDeploymentFolderCreateDir>
-      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
+      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetFullPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCreateDir)" />
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCopyFile)" />
@@ -132,4 +107,12 @@
     <Delete Files="$(DeployTargetPath)" />
     <Message Text="Deleted $(DeployTargetPath)" Importance="High" />
   </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.3.2\build\GitVersionTask.props'))" />
+    <Error Condition="!Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets'))" />
+  </Target>
+  <Import Project="..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.5.3.2\build\GitVersionTask.targets')" />
 </Project>

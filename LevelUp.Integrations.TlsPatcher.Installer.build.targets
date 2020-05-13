@@ -14,44 +14,26 @@
       <Name>WixNetFxExtension</Name>
     </WixExtension>
   </ItemGroup>
-  <Target Name="GetAssemblyVersion" BeforeTargets="EnsureWixToolsetInstalled">
-    <Message Text="Triggering GetAssemblyVersion..." Importance="High" />
-  </Target>
   <Target Name="SharedProperties">
     <PropertyGroup>
       <BuildScriptSourceDir>$(SolutionDir)BuildScripts\</BuildScriptSourceDir>
       <BuildScriptSourceDirSignInstaller>$(BuildScriptSourceDir)SignInstaller.ps1</BuildScriptSourceDirSignInstaller>
-      <BuildTargetPath>$(TargetDir)$(TargetName)-$(GitVersion_NuGetVersion)_$(Platform)$(TargetExt)</BuildTargetPath>
-      <DeployTargetDir>$(SolutionDir)Deployment\</DeployTargetDir>
+      <BuildTargetFullPath>$(TargetDir)$(TargetName)-$(GitVersion_NuGetVersion)_$(Platform)$(TargetExt)</BuildTargetFullPath>
+      <DeployTargetDir>$(SolutionDir)artifacts\</DeployTargetDir>
       <DeployTargetPath>$(DeployTargetDir)$(TargetName)-$(GitVersion_NuGetVersion)$(TargetExt)</DeployTargetPath>
-      <PsSignInstallerBuildScript>"&amp; '$(BuildScriptSourceDirSignInstaller)' '$(BuildTargetPath)'"</PsSignInstallerBuildScript>
     </PropertyGroup>
-  </Target>
-  <Target Name="SendGetVersionToWix" AfterTargets="GetVersion">
-    <Message Text="GitVersion Found, GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch)" Importance="High" />
-    <CreateProperty Value="GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch);$(DefineConstants)">
-      <Output TaskParameter="Value" PropertyName="DefineConstants" />
-    </CreateProperty>
-    <Message Text="GitVersion Found, GitVersion_NuGetVersion=$(GitVersion_NuGetVersion)" Importance="High" />
-    <CreateProperty Value="GitVersion_NuGetVersion=$(GitVersion_NuGetVersion);$(DefineConstants)">
-      <Output TaskParameter="Value" PropertyName="DefineConstants" />
-    </CreateProperty>
   </Target>
   <Target Name="AddVersionToFilename" DependsOnTargets="SharedProperties" AfterTargets="Build">
     <PropertyGroup>
-      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetPath)' -force"</PsAddVersionToFilename>
+      <PsAddVersionToFilename>"Move-Item '$(TargetPath)' '$(BuildTargetFullPath)' -force"</PsAddVersionToFilename>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsAddVersionToFilename)" />
   </Target>
-  <Target Name="SignMsi" DependsOnTargets="SharedProperties" AfterTargets="AddVersionToFilename">
-    <Message Text="Calling $(BuildScriptSourceDirSignInstaller)" Importance="High" />
-    <Exec Command="powershell -Command  $(PsSignInstallerBuildScript)" />
-  </Target>
-  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="SignMsi">
+  <Target Name="CopyToDeploymentFolder" DependsOnTargets="SharedProperties" AfterTargets="AddVersionToFilename">
     <Message Text="Copying installer to $(DeployTargetDir)" Importance="High" />
     <PropertyGroup>
       <PsCopyToDeploymentFolderCreateDir>"if (!(Test-Path -path '$(DeployTargetDir)')) {New-Item '$(DeployTargetDir)' -Type Directory}"</PsCopyToDeploymentFolderCreateDir>
-      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
+      <PsCopyToDeploymentFolderCopyFile>"Copy-Item '$(BuildTargetFullPath)' '$(DeployTargetDir)' -recurse -force"</PsCopyToDeploymentFolderCopyFile>
     </PropertyGroup>
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCreateDir)" />
     <Exec Command="powershell -Command  $(PsCopyToDeploymentFolderCopyFile)" />

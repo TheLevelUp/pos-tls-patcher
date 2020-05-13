@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-<copyright file="Tls12RegistryComponents.wxi" company="SCVNGR, Inc. d/b/a LevelUp">
+<copyright file="Tls12RegistryComponents.wxs" company="SCVNGR, Inc. d/b/a LevelUp">
      Copyright(c) 2018 SCVNGR, Inc. d/b/a LevelUp. All rights reserved.
   
 </copyright>
@@ -24,42 +24,42 @@
       <!--SChannel-->
       <?define CurrentControlSet="SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols"?>
 
-      <Component>
+      <Component Permanent="yes">
         <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Client"
                        Name="Enabled" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
-      <Component>
+      <Component Permanent="yes">
         <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
-                       Name="Enabled" Type="integer" Value="1" Action="write"/>
+                       Name="Enabled" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
-      <Component>
+      <Component Permanent="yes">
         <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Client"
                        Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
       </Component>
-      <Component>
+      <Component Permanent="yes">
         <RegistryValue Root="HKLM" Key="$(var.CurrentControlSet)\TLS 1.2\Server"
                        Name="DisabledByDefault" Type="integer" Value="0" Action="write" KeyPath="yes"/>
       </Component>
       
       <!--.NET 4.x-->
-      <Component Win64="no">
+      <Component Win64="no" Permanent="yes">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
                        Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
       <?if $(var.Platform)=x64 ?>
-      <Component Id="StrongCrypto64Key" Win64="yes">
+      <Component Id="StrongCrypto64Key" Win64="yes" Permanent="yes">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
                        Name="SchUseStrongCrypto" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
       <?endif ?>
       
       <!--.NET 3.5/2.0-->
-      <Component Win64="no">
+      <Component Win64="no" Permanent="yes">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
                        Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
       <?if $(var.Platform)=x64 ?>
-      <Component Id="SystemdDefaultTls64Key" Win64="yes">
+      <Component Id="SystemdDefaultTls64Key" Win64="yes" Permanent="yes">
         <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v2.0.50727"
                        Name="SystemDefaultTlsVersions" Type="integer" Value="1" Action="write" KeyPath="yes"/>
       </Component>
